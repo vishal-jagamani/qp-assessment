@@ -45,5 +45,5 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 app.use(errorHandler);
 
 app.listen(PORT, () => {
-    console.log(`NodeJS with express in typescript server is running on port ${PORT}`);
+    console.log(`QuestionPro assessment server is running on port ${PORT}`);
 });

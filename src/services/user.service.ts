@@ -1,3 +1,3 @@
-export const getUserData = async () => {
-    return 'User data fetched successfully';
+export const createUserOrder = async () => {
+    return 'User order created successfully';
 };
