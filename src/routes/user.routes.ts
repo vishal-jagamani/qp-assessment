@@ -1,9 +1,11 @@
 import { Router } from 'express';
 
-import { getDataController } from '../controllers/user.controller.js';
+import { createUserOrderController, getAllGroceriesController } from '../controllers/user.controller.js';
 
 const router = Router();
 
-router.get('/data', getDataController);
+router.get('/groceries', getAllGroceriesController);
+
+router.post('/orders', createUserOrderController);
 
 export default router;
