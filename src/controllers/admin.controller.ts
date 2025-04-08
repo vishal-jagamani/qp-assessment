@@ -8,6 +8,7 @@ export const getAllGroceriesForAdminController: RequestHandler = async (req, res
     try {
         const response = await getAllGroceriesItems();
         res.status(200).send(response);
+        return;
     } catch (err) {
         next(err);
     }

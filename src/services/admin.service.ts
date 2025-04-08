@@ -32,7 +32,7 @@ export const updateGroceryItem = async (details: addGroceryItemBodyParams, id: s
             ...details,
             updated_at: Math.floor(Date.now() / 1000),
         };
-        await supabaseUpdate('grocery_items', row, id);
+        await supabaseUpdate('grocery_items', row, Number(id));
         return { status: true, message: 'Grocery item updated' };
     } catch (err) {
         console.log('Error in updateGroceryItem service', err);
@@ -42,7 +42,7 @@ export const updateGroceryItem = async (details: addGroceryItemBodyParams, id: s
 
 export const deleteGroceryItem = async (id: string) => {
     try {
-        await supabaseDelete('grocery_items', id);
+        await supabaseDelete('grocery_items', Number(id));
         return { status: true, message: 'Grocery item deleted' };
     } catch (err) {
         console.log('Error in deleteGroceryItem service', err);
