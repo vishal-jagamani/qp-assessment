@@ -12,3 +12,8 @@ dotenv?.config({ path: envFilePath });
 export const config = {
     url: 'https://catfact.ninja',
 };
+
+export const SupabaseConfig: { url: string; apiKey: string } = {
+    url: process?.env?.SUPABASE_PROJECT_URL || '',
+    apiKey: process?.env?.SUPABASE_API_KEY || '',
+};

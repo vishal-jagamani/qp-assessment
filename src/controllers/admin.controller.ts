@@ -1,11 +1,12 @@
-import { NextFunction, Request, Response } from 'express';
+import { RequestHandler } from 'express';
 
-import { getAllGroceries } from '../services/groceries.service.js';
+import { addGroceryItem, deleteGroceryItem, getAllGroceriesItems, updateGroceryItem } from '../services/admin.service.js';
+import { addGroceryItemBodyParams } from '../types/grocery.types.js';
 
 // To get all the groceries for admin
-export const getAllGroceriesForAdminController = async (req: Request, res: Response, next: NextFunction) => {
+export const getAllGroceriesForAdminController: RequestHandler = async (req, res, next) => {
     try {
-        const response = await getAllGroceries();
+        const response = await getAllGroceriesItems();
         res.status(200).send(response);
     } catch (err) {
         next(err);
@@ -13,46 +14,66 @@ export const getAllGroceriesForAdminController = async (req: Request, res: Respo
 };
 
 // To add the grocery item by admin
-export const createGroceryController = async (req: Request, res: Response, next: NextFunction) => {
+export const createGroceryController: RequestHandler<object, object, addGroceryItemBodyParams, object> = async (req, res, next) => {
     try {
-        console.log('Grocery added');
-        res.status(200).send('Grocery added');
+        const { name, description, price, quantity } = req.body;
+        if (!name || !price || !quantity) {
+            res.status(400).send({ error: 'Invalid params' });
+            return;
+        }
+        const payload = { name, description: description || '', price, quantity };
+        const response = await addGroceryItem(payload);
+        res.status(201).send(response);
+        return;
     } catch (err) {
         next(err);
     }
 };
 
 // To update the grocery item by admin
-export const updateGroceryController = async (req: Request<{ id: string }, object, object, object>, res: Response, next: NextFunction) => {
+export const updateGroceryController: RequestHandler<{ id: string }, object, addGroceryItemBodyParams, object> = async (req, res, next) => {
     try {
         const { id } = req.params;
-        if (!id) res.status(400).send({ error: 'Invalid params' });
-        console.log('Grocery updated');
-        res.status(200).send('Grocery updated');
+        const { name, price, quantity } = req.body;
+        if (!id || !name || !price || !quantity) {
+            res.status(400).send({ error: 'Invalid params' });
+            return;
+        }
+        const response = await updateGroceryItem(req.body, id);
+        res.status(200).send(response);
+        return;
     } catch (err) {
         next(err);
     }
 };
 
 // To delete the grocery item by admin
-export const deleteGroceryController = async (req: Request<{ id: string }, object, object, object>, res: Response, next: NextFunction) => {
+export const deleteGroceryController: RequestHandler<{ id: string }, object, object, object> = async (req, res, next) => {
     try {
         const { id } = req.params;
-        if (!id) res.status(400).send({ error: 'Invalid params' });
-        console.log('Grocery deleted');
-        res.status(200).send('Grocery deleted');
+        if (!id) {
+            res.status(400).send({ error: 'Invalid params' });
+            return;
+        }
+        const response = await deleteGroceryItem(id);
+        res.status(200).send(response);
+        return;
     } catch (err) {
         next(err);
     }
 };
 
 // To update the grocery item inventory by admin
-export const updateInventoryController = async (req: Request<{ id: string }, object, object, object>, res: Response, next: NextFunction) => {
+export const updateInventoryController: RequestHandler<{ id: string }, object, object, object> = async (req, res, next) => {
     try {
         const { id } = req.params;
-        if (!id) res.status(400).send({ error: 'Invalid params' });
+        if (!id) {
+            res.status(400).send({ error: 'Invalid params' });
+            return;
+        }
         console.log('Grocery inventory updated');
-        res.status(200).send('Grocery inventory updated');
+        res.status(200).send({ message: 'Grocery inventory updated' });
+        return;
     } catch (err) {
         next(err);
     }

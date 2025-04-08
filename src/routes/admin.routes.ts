@@ -18,6 +18,6 @@ router.put('/groceries/:id', updateGroceryController);
 
 router.delete('/groceries/:id', deleteGroceryController);
 
-router.patch('/groceries/:id/inventory', updateInventoryController);
+router.patch('/groceries/:id/stock', updateInventoryController);
 
 export default router;

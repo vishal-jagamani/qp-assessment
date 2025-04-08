@@ -26,7 +26,7 @@ app.get('/testEndpoint', (req: Request, res: Response) => {
 import indexRoutes from './routes/index.js';
 
 // Use index route
-app.use(indexRoutes);
+app.use('/', indexRoutes);
 
 // Middleware to handle 404 errors
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
