@@ -18,13 +18,13 @@ export const getAllGroceriesController: RequestHandler = async (req, res, next) 
 // To create the order for user
 export const createUserOrderController: RequestHandler<object, object, createUserOrderBodyParams, object> = async (req, res, next) => {
     try {
-        const { grocery_item_id, quantity } = req.body;
+        const { items } = req.body;
         const userId = req.headers['x-user-id'];
-        if (!(userId && typeof userId === 'string') || !grocery_item_id || !quantity) {
+        if (!(userId && typeof userId === 'string') || !Array.isArray(items) || items.length === 0) {
             res.status(400).send({ error: 'Invalid params' });
             return;
         }
-        const response = await createUserOrder(Number(userId), grocery_item_id, quantity);
+        const response = await createUserOrder(Number(userId), items);
         res.status(200).send(response);
         return;
     } catch (err) {

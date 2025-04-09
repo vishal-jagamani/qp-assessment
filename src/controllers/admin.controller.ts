@@ -1,6 +1,6 @@
 import { RequestHandler } from 'express';
 
-import { addGroceryItem, deleteGroceryItem, getAllGroceriesItems, updateGroceryItem } from '../services/admin.service.js';
+import { addGroceryItem, deleteGroceryItem, getAllGroceriesItems, updateGroceryItem, updateInventory } from '../services/admin.service.js';
 import { addGroceryItemBodyParams } from '../types/grocery.types.js';
 
 // To get all the groceries for admin
@@ -65,15 +65,16 @@ export const deleteGroceryController: RequestHandler<{ id: string }, object, obj
 };
 
 // To update the grocery item inventory by admin
-export const updateInventoryController: RequestHandler<{ id: string }, object, object, object> = async (req, res, next) => {
+export const updateInventoryController: RequestHandler<{ id: string }, object, { quantity: number }, object> = async (req, res, next) => {
     try {
         const { id } = req.params;
-        if (!id) {
+        const { quantity } = req.body;
+        if (!id || !quantity) {
             res.status(400).send({ error: 'Invalid params' });
             return;
         }
-        console.log('Grocery inventory updated');
-        res.status(200).send({ message: 'Grocery inventory updated' });
+        const response = await updateInventory(id, quantity);
+        res.status(200).send(response);
         return;
     } catch (err) {
         next(err);
