@@ -29,7 +29,7 @@ This is a RESTful Grocery Booking API built with **Node.js**, **TypeScript**, an
 ## 🧪 Sample API Payloads
 
 ### 🌐 Live API Base URL
-```http
+```arduino
 https://qp-assessment-birr.onrender.com
 ```
 ⚠️ Note: The server is hosted on Render’s free tier. It sleeps after 15 minutes of inactivity and may take up to 50 seconds to 1 minute to restart when accessed again.
