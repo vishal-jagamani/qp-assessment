@@ -3,6 +3,8 @@
 This is a RESTful Grocery Booking API built with **Node.js**, **TypeScript**, and **PostgreSQL**. It supports two roles: **Admin** and **User**, offering features like inventory management and multi-item order booking.
 
 
+
+
 ## 📦 Tech Stack
 
 - **Backend:** Node.js, Express, TypeScript
