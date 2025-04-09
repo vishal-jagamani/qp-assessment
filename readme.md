@@ -36,7 +36,7 @@ https://qp-assessment-birr.onrender.com
 
 ### Create Order (User)
 ```http
-POST /orders
+POST /user/orders
 Headers:
   x-user-id: 1
 
